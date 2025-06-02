@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <PackageReference Include="Buttplug" Version="4.0.0" />
+    <PackageReference Include="Raylib-cs" Version="7.0.1" />
   </ItemGroup>
 
 </Project>

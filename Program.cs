@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Raylib_cs;
 
 namespace ck.qiekn {
   internal class Program {
@@ -123,6 +124,21 @@ namespace ck.qiekn {
     private static void Main() {
       // Setup a client, and wait until everything is done before exiting.
       RunExample().Wait();
+
+      /*
+      Raylib.InitWindow(800, 480, "Hello World");
+
+      while (!Raylib.WindowShouldClose()) {
+        Raylib.BeginDrawing();
+        Raylib.ClearBackground(Color.White);
+
+        Raylib.DrawText("Hello, world!", 12, 12, 20, Color.Black);
+
+        Raylib.EndDrawing();
+      }
+
+      Raylib.CloseWindow();
+      */
     }
   }
 }
