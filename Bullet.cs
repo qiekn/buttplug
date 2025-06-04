@@ -10,6 +10,7 @@ public class Bullet : IBullet {
   public int Level; // 分裂等级,1级碰到判定点会变为0级，变成0级就会消失
   public bool IsActive;
   public static Texture2D BulletTexture;
+  public static Sound HitSound;
 
   public event Action? OnHit;
 
@@ -42,12 +43,21 @@ public class Bullet : IBullet {
     Raylib.UnloadTexture(BulletTexture);
   }
 
+  public static void LoadSound(string soundPath) {
+    HitSound = Raylib.LoadSound(soundPath);
+  }
+
+  public static void UnloadSound() {
+    Raylib.UnloadSound(HitSound);
+  }
+
   public void Update() {
     if (!IsActive) return;
     Position += Velocity * Raylib.GetFrameTime();
     if (Position.X <= Conf.judgmentX) {
       IsActive = false;
       OnHit?.Invoke();
+      Raylib.PlaySound(HitSound);
     }
   }
 

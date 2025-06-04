@@ -45,10 +45,14 @@ internal class Game {
 
   public void Init() {
     Bullet.LoadTexture("assets/images/top500.png");
+    Raylib.InitAudioDevice();
+    Bullet.LoadSound("assets/audio/fap.wav");
   }
 
   public void CleanUp() {
     Bullet.UnloadTexture();
+    Bullet.UnloadSound();
+    Raylib.CloseAudioDevice();
   }
 
   public Game(Font a, Font b) : this() {
