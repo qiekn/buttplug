@@ -4,11 +4,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Raylib_cs;
+using System.Numerics;
+using Microsoft.VisualBasic;
 
 namespace ck.qiekn;
 
 internal class Program {
-
   private static async Task WaitForKey() {
     Console.WriteLine("Press any key to continue.");
     while (!Console.KeyAvailable) {
@@ -17,7 +18,7 @@ internal class Program {
     Console.ReadKey(true);
   }
 
-  private static async Task RunExample() {
+  private static async Task RunClient() {
     var client = new ButtplugClient("My Client");
 
     // Whenever a client connects, it asks the server for a list of devices
@@ -114,21 +115,27 @@ internal class Program {
 
   private static void Main() {
     // Setup a client, and wait until everything is done before exiting.
-    RunExample().Wait();
+    // RunClient().Wait();
 
-    /*
-    Raylib.InitWindow(800, 480, "Hello World");
+
+    Raylib.InitWindow(Conf.ScreenWidth, Conf.ScreenHeight, "game");
+    Raylib.SetTargetFPS(144);
+    Raylib.SetConfigFlags(ConfigFlags.Msaa4xHint | ConfigFlags.HighDpiWindow);
+
+    // 加载 Noto Serif 字体
+    Font notoRegular = Raylib.LoadFontEx("assets/fonts/noto-regular.ttf", 64, null, 0);
+    Font notoItalic = Raylib.LoadFontEx("assets/fonts/noto-italic.ttf", 64, null, 0);
+
+    var game = new Game(notoRegular, notoItalic);
+    game.Init();
 
     while (!Raylib.WindowShouldClose()) {
-      Raylib.BeginDrawing();
-      Raylib.ClearBackground(Color.White);
-
-      Raylib.DrawText("Hello, world!", 12, 12, 20, Color.Black);
-
-      Raylib.EndDrawing();
+      game.HandleInput();
+      game.Update();
+      game.Draw();
     }
 
+    game.CleanUp();
     Raylib.CloseWindow();
-    */
   }
 }
